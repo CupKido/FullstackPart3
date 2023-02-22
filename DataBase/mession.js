@@ -2,11 +2,9 @@
 
 class Mession{
 
-    constructor(mession){
-        this.mession = mession
-        this.id = undefined
+    constructor(messionTest){
+        this.text = messionTest
         this.userId = undefined
-        this.parentId = undefined
-
+        this.id = undefined
     }
 }
