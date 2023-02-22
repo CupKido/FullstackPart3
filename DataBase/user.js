@@ -9,11 +9,5 @@ class User{
      this.lname = lname
 
      this.id  = undefined
-     this.todoList = []   
-    }
-
-    addMession(mession){
-        mession.id =  this.todoList.length
-        this.todoList.push(mession)
     }
 }
