@@ -5,8 +5,18 @@ export class server{
     static handle(FXMLhttpRequest) {
         
         console.log(server.my_url + ' received ', FXMLhttpRequest.body);
+        var resource = FXMLhttpRequest.url.substring(server.my_url.length, FXMLhttpRequest.url.length)
         if (FXMLhttpRequest.method === 'GET') {
-            this.handle_GET(FXMLhttpRequest.url.substring(server.my_url.length, FXMLhttpRequest.url.length), FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+            this.handle_GET(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+        }
+        else if (FXMLhttpRequest.method === 'POST') {   
+            this.handle_POST(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+        }
+        else if (FXMLhttpRequest.method === 'PUT') {
+            this.handle_PUT(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+        }
+        else if (FXMLhttpRequest.method === 'DELETE') {
+            this.handle_DELETE(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
         }
         FXMLhttpRequest.status = 4;
     }
