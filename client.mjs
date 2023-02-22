@@ -1,4 +1,4 @@
-import { FXMLhttpRequest } from "./fxmlhttprequest.mjs";
+import { FXMLhttpRequest } from "./network/fxmlhttprequest.mjs";
 
 function main(){
     var req = new FXMLhttpRequest();
