@@ -1,10 +1,10 @@
 
 
-class Mession{
+export class Mession{
 
-    constructor(messionTest){
+    constructor(messionTest,userId,id){
         this.text = messionTest
-        this.userId = undefined
-        this.id = undefined
+        this.userId = userId
+        this.id = id
     }
 }

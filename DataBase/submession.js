@@ -1,10 +1,10 @@
 
 
-class SubMession{
+export class SubMession{
 
-    constructor(messionId, messionTest) {
+    constructor(messionTest, messionId, id) {
         this.text = messionTest
         this.parentId = messionId
-        this.id = undefined
+        this.id = id
     }
 }
