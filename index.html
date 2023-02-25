@@ -3,17 +3,28 @@
 <head>
 	<title>To-Do List</title>
 	<link rel="stylesheet" href="styles/index.css" type="text/css">
-    <script src="./scripts/script.js" type="module"></script>
+    <script src="./client.mjs" type="module"></script>
 </head>
 <body>
-	<h1>To-Do List</h1>
+    <div class="login-form" id="login-form">
+        <h1>Login</h1>
+        <input id="UsernameText" type="text" name="username" placeholder="Username" required>
+        <label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
+        <input id="PasswordText" type="password" name="password" placeholder="Password" required>
+        <label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
+        <button id="LogInButton" type="button">Log in</button>
+        <button id="SignUpButton" type="button">Sign up</button>
+        <label id="ManyTrialsLabel" class="hidden login-error">Too many trials!</label>
+    </div>
+    <div class="ToDoListApp hidden" id = "ToDoListApp">
 
+	<h1>To-Do List</h1>
 	<form>
 		<input id='task-text' type="text" placeholder="Enter a task">
 		<button type="submit" onclick="handleFormSubmit()">Add</button>
 	</form>
 
-	<ul>
+	<ul id="task-list">
 		<!-- Template for each task -->
 		<template id="task-template">
 			<li>
