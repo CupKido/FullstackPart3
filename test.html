@@ -9,12 +9,34 @@
 </head>
 <body>
 
-    <div id="content-div">
-        <h1>Hi!</h1>
-        <button id="Login">Login</button>
-        <button id="Sign-Up">Sign-Up</button>
+    <div class="center-div">
+        <div id="content-div">
+            <section id="login-signup" class="hidden">
+                <h1>Hi!</h1>
+                <button id="Login">Login</button>
+                <button id="Sign-Up">Sign-Up</button>
+            </section>
+
+            <section id="login">
+                <button id="back">></button>
+                <h1>Let's Login!</h1>
+                <form>
+                    <label for="UsernameText">Username:</label>
+                    <input id="UsernameText" type="text" name="username" placeholder="Username" required>                    
+                    <label for="PasswordText">Password:</label>
+                    <input id="PasswordText" type="password" name="password" placeholder="Password" required>
+                    <br>
+                    <label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
+                    <label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
+                    <button id="submit-login">Submit</button>
+                </form>
+                
+                
+            </section>
+        </div>
     </div>
     
+
     <!-- background elements-->
     <div class='light x1'></div>
     <div class='light x2'></div>

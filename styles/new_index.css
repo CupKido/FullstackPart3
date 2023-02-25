@@ -1,9 +1,18 @@
 @import url('./backgound.css');
 
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.hidden { display: none; }
+
+.login-error{
+    color: red;
+}
 
 h1{
     font-size: 50px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 30px;
 }
 
 button {
@@ -15,18 +24,48 @@ button {
     font-size: 16px;
     margin-top: 20px;
     cursor: pointer;
-    width: 60%;
-    height: 15%;
+    width: 20rem;
+    height: 3rem;
 }
 
 #content-div{
     position: absolute;
-    top: 25%;
-    left: 25%;
     background-color: aliceblue;
     border: 3px solid gray;
-    width: 450px;
+    top: 25%;
+    width: 430px;
     height: 400px;
     text-align: center;
     border-radius: 15px;
+}
+
+.center-div{
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    
+}
+
+input[type="text"],
+input[type="password"]{
+    border-radius: 10px;
+    width: 20rem;
+    height: 1rem;
+    border: solid 3px #4CAF50;
+    background-color: #def5de;
+    padding: 15px;
+}
+
+
+#back{
+    color: rgb(0, 191, 255);
+    background-color: transparent;
+    position: absolute;
+    padding-left: 40px;
+    padding-top: 0px;
+    font-size: 40px;
+    margin-top: 0px;
+    text-align: center;
 }
