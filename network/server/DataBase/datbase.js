@@ -3,7 +3,14 @@ import { Mission } from "./mission";
 export class Database {
 
     load(key){
-        return JSON.parse(localStorage.getItem(key))
+        var templist = localStorage.getItem(key);
+        
+        if (templist){
+            return JSON.parse(localStorage.getItem(key))
+        }
+        else{
+            localStorage.setItem(key,'{}')
+        }
     }
     save(key,value){
         localStorage.setItem(key,JSON.stringify(value))
@@ -15,7 +22,7 @@ export class Database {
         return users[userId.toString()]
     }
 
-    static getUser(username,password){
+    static getUser(username, password){
         users = load('Users')
 
         for (const key in users){
