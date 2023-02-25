@@ -3,6 +3,7 @@ var logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
 
 
 document.getElementById('LogInButton').addEventListener('click', sign_in);
+document.getElementById('FormSubmit_Click').addEventListener('click', handleFormSubmit);
 
 
 function test(){
@@ -60,19 +61,18 @@ function load_todo_list(){
      'server.com/GetTasks',
      {userId : logged_user.id},
      function(response) {
-        console.log(response.status)
         if (response.status === 200){
             var tasks = response.tasks;
             // add tasks to todo list
             const tasksList = document.getElementById('task-list');
             const taskTemplate = document.getElementById('task-template');
-            for (var i = 0; i < tasks.length; i++){
-                var task_data = tasks[i];
-                console.log(task_data.title);
-                const task = taskTemplate.content.cloneNode(true);
-                const span = task.querySelector('span');
-                span.textContent = task_data.title;
-                tasksList.appendChild(task);
+            console.log('title', tasks)
+            for (const task of tasks){
+                console.log(task.title);
+                const task_item = taskTemplate.content.cloneNode(true);
+                const span = task_item.querySelector('span');
+                span.textContent = task.title;
+                tasksList.appendChild(task_item);
             }
 
 
@@ -93,3 +93,38 @@ function exit_login(){
 }
 
 test();
+
+// Function to add a new task to the list
+function addTask(text) {
+    
+
+
+    var req = new FXMLhttpRequest();
+    req.open(
+     'PUT',
+     'server.com/CreateTask',
+     {userId : logged_user.id, title : text},
+     function(response) {
+        console.log(response.status)
+        if (response.status === 200){
+            const tasksList = document.getElementById('task-list');
+            const taskTemplate = document.getElementById('task-template');
+            const task = taskTemplate.content.cloneNode(true);
+            const span = task.querySelector('span');
+            span.textContent = text;
+            tasksList.appendChild(task);
+        }
+    });
+    req.send();
+}
+
+// Function to handle form submission
+function handleFormSubmit(event) {
+    //event.preventDefault();
+    const inputText = document.getElementById('task-text');
+    const text = inputText.value;
+    if (text !== '') {
+        addTask(text);
+        inputText.value = '';
+    }
+}

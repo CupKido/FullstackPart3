@@ -1,9 +1,6 @@
-//import { FXMLhttpRequest } from "./fxmlhttprequest.mjs";
-console.log('importing');
 import { Database } from "./DataBase/database.js";
 import { Mission } from "./DataBase/mission.js";
 import { User } from "./DataBase/user.js";
-console.log('imported');
 export class server{
     static my_url = 'server.com';
     static handle(FXMLhttpRequest) {
@@ -35,13 +32,10 @@ export class server{
             var user = Database.getUser(body.username, body.password)
             // if user exists
             if (user !== undefined) {
-                console.log('user exists')
+                console.log('user exists', user)
+
                 var response = {status: 200,
-                    user: {username : user.username,
-                         password : user.password,
-                          id : user.id,
-                           fname : user.fname,
-                            lname : user.lname}}
+                    user: user}
                on_ready_callback(response);
             }
             else {
@@ -62,11 +56,17 @@ export class server{
             // get user 
             
             // if user exists
-            
-            var response = {status: 200, userId : body.userId,
-                tasks : [{title : 'do this'}, {title : 'do that'}, {title : 'do those'}] }
-            on_ready_callback(response);
-            
+            var Tasks = Database.getMissions(body.userId);
+            console.log(Tasks)
+            if (Tasks !== undefined) {
+                var tasks_list = []
+                for (var i = 0; i < Tasks.length; i++){
+                    tasks_list.push({title : Tasks[i].text, id : Tasks[i].id, done : Tasks[i].done});
+                }
+                var response = {status: 200, userId : body.userId,
+                    tasks : tasks_list }
+                on_ready_callback(response);
+            }
             // call on_ready_callback when done
             
         }]);
@@ -98,10 +98,18 @@ export class server{
         var options = []
         options.push(["/CreateTask", function (resource, body, on_ready_callback){
             // do this and that
-
-            // call on_ready_callback when done
-
-            on_ready_callback({status: 200, response: 'server.com says: task ' + body.title + ' created'});
+            var response = {}
+            var mission = Database.addMission(body.userId, body.title);
+            if (mission !== undefined) {
+                response = {status: 200, userId : body.userId,
+                    task : {title : mission.title, id : mission.id, done : mission.done} }
+                
+            }else{
+                response = {status: 404, userId : body.userId,
+                    task : undefined }
+                
+            }
+            on_ready_callback(response);
         }]);
 
         options.push(["/SignUp", function (resource, body, on_ready_callback){

@@ -4,12 +4,15 @@ export class Database {
 
     static load(key){
         var templist = localStorage.getItem(key);
-        
+        //console.log(templist)
+       
         if (templist){
-            return JSON.parse(localStorage.getItem(key))
+            templist = JSON.parse(templist)
+            return templist
         }
         else{
             localStorage.setItem(key,'{}')
+            return {}
         }
     }
 
@@ -19,15 +22,15 @@ export class Database {
 
     static getUser(userId){
         var users = Database.load('Users')
-
+        users[userId.toString()] = userId
         return users[userId.toString()]
     }
 
     static getUser(username,password){
         var users = Database.load('Users')
-
         for (const key in users){
             if (users[key].username === username && users[key].password === password){
+                users[key]['id'] = key
                 return users[key]
             }
         }
@@ -35,32 +38,36 @@ export class Database {
     }
 
     static getMissions(userId){
-        var user = this.getUser(userId)
-        var missions  = load('Missions')
+        var user = Database.getUser(userId)
+        var missions = Database.load('Missions')
         var final_list = []
-        for (const mission of  missions){
+        for (const mission of Object.values(missions)){
             if (mission.userId===userId){
                 final_list.push(mission)
             }
         }
-
         return final_list
     }
 
     static addUser(user){
         var users = Database.load('Users')
-
-        users[Object.keys(users).length.toString()] = JSON.stringify(user.json())
+        
+        console.log(JSON.parse(JSON.stringify(user.json())))
+        console.log(user.json())
+        console.log(JSON.stringify(user.json()))
+        user.id = Object.keys(users).length
+        users[user.id] = user.json()
 
         Database.save('Users', users)
     }
 
     static addMission(userId,text){
-        var missions = load('Missions')
-        var mission = Mission(text,userId,missions.length)
-        missions.push(JSON.stringify(mission.json()))
-
+        var missions = Database.load('Missions')
+        var new_id = Object.keys(missions).length
+        var mission = new Mission(text,userId, new_id)
+        missions[new_id] = mission.json()
         Database.save('Missions', missions)
+        return mission
     }
 
     static removeUser(userId){
