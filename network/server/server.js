@@ -71,13 +71,7 @@ export class server{
             
         }]);
 
-        for (var i = 0; i < options.length; i++) {
-            console.log(options[i][0], ' === ', resource);
-            if(resource === options[i][0]){
-                options[i][1](resource, body, on_ready_callback);
-                break;
-            }
-        }
+        server.go_over_options(options, resource, body, on_ready_callback);
     }
 
     static handle_POST(resource, body, on_ready_callback){
@@ -86,12 +80,7 @@ export class server{
         
 
 
-        for (var i = 0; i < options.length; i++) {
-            if(resource === options[i][0]){
-                options[i][1](resource, body, on_ready_callback);
-                break;
-            }
-        }
+        server.go_over_options(options, resource, body, on_ready_callback);
     }
 
     static handle_PUT(resource, body, on_ready_callback){
@@ -140,18 +129,34 @@ export class server{
             on_ready_callback(response);
         }]);
         
-        for (var i = 0; i < options.length; i++) {
-            if(resource === options[i][0]){
-                options[i][1](resource, body, on_ready_callback);
-                break;
-            }
-        }
+        server.go_over_options(options, resource, body, on_ready_callback);
     }    
 
     static handle_DELETE(resource, body, on_ready_callback){
         var options = []
-        
+
+        options.push(["/DeleteTask", function (resource, body, on_ready_callback){
+            // do this and that
+            var response = {}
+
+            var mission = Database.removeMission(body.taskId);
+            if (mission !== undefined) {
+                response = {status: 200, 
+                    task : {title : mission.title, id : mission.id, done : mission.done} }
+            }
+            else {
+                response = {status: 404, 
+                    task : undefined }
+            }
+            on_ready_callback(response);
+        }]);
+
+        server.go_over_options(options, resource, body, on_ready_callback);
+    }
+
+    static go_over_options(options, resource, body, on_ready_callback){
         for (var i = 0; i < options.length; i++) {
+            console.log(options[i][0], ' === ', resource);
             if(resource === options[i][0]){
                 options[i][1](resource, body, on_ready_callback);
                 break;
