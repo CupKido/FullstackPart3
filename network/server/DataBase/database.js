@@ -3,8 +3,16 @@ import { Mission } from "./mission.js";
 export class Database {
 
     static load(key){
-        return JSON.parse(localStorage.getItem(key))
+        var templist = localStorage.getItem(key);
+        
+        if (templist){
+            return JSON.parse(localStorage.getItem(key))
+        }
+        else{
+            localStorage.setItem(key,'{}')
+        }
     }
+
     static save(key,value){
         localStorage.setItem(key,JSON.stringify(value))
     }
