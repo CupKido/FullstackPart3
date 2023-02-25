@@ -6,5 +6,6 @@ export class SubMession{
         this.text = messionTest
         this.parentId = messionId
         this.id = id
+        this.done = false
     }
 }

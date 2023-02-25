@@ -9,8 +9,8 @@
 	<h1>To-Do List</h1>
 
 	<form>
-		<input type="text" placeholder="Enter a task">
-		<button type="submit">Add</button>
+		<input id='task-text' type="text" placeholder="Enter a task">
+		<button type="submit" onclick="handleFormSubmit()">Add</button>
 	</form>
 
 	<ul>
@@ -24,28 +24,6 @@
 		</template>
 	</ul>
 
-	<script>
-		const taskList = document.querySelector('ul');
-		const taskTemplate = document.getElementById('task-template');
-
-		// Function to add a new task to the list
-		function addTask(text) {
-			const task = taskTemplate.content.cloneNode(true);
-			const span = task.querySelector('span');
-			span.textContent = text;
-			taskList.appendChild(task);
-		}
-
-		// Function to handle form submission
-		function handleFormSubmit(event) {
-			event.preventDefault();
-			const input = event.target.querySelector('input[type="text"]');
-			const text = input.value.trim();
-			if (text !== '') {
-				addTask(text);
-				input.value = '';
-			}
-		}
-    </script>
+	<script src="./index.js"></script>
 </body>
 </html>

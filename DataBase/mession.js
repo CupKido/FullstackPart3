@@ -6,5 +6,6 @@ export class Mession{
         this.text = messionTest
         this.userId = userId
         this.id = id
+        this.done = false
     }
 }
