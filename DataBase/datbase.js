@@ -1,6 +1,4 @@
 import { Mession } from "./mession";
-import { SubMession } from "./submession"
-
 
 export class Database {
 
@@ -56,13 +54,6 @@ export class Database {
         save('Messions', messions)
     }
 
-    static addSubMession(messionId,text){
-        submessions = load('SubMessions')
-        submessions.push(JSON.stringify(SubMession(text,messionId,submessions.length)))
-
-        save('SubMessions', submessions)
-    }
-
     static removeUser(userId){
         users=load('Users')
 
@@ -84,21 +75,6 @@ export class Database {
         }
 
         save('Messions',messions)
-    }
-
-    static removeSubMession(submessionId){
-        submessions=load('SubMessions')
-        
-        messionIndex = submessions.findIndex(function(mes){return mes.id==messionId})
-        
-        if (messionIndex){
-            submessions.splice(messionIndex,1)
-        }
-        else{
-            console.log('Dont Exists')
-        }
-
-        save('SubMessions',submessions)
     }
 
 }
