@@ -50,14 +50,15 @@ export class Database {
     static addUser(user){
         var users = Database.load('Users')
 
-        users[Object.keys(users).length.toString()] = JSON.stringify(user)
+        users[Object.keys(users).length.toString()] = JSON.stringify(user.json())
 
         Database.save('Users', users)
     }
 
     static addMission(userId,text){
         var missions = load('Missions')
-        missions.push(JSON.stringify(Mission(text,userId,missions.length)))
+        var mission = Mission(text,userId,missions.length)
+        missions.push(JSON.stringify(mission.json()))
 
         Database.save('Missions', missions)
     }

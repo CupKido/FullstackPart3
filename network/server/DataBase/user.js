@@ -10,4 +10,12 @@ export class User{
 
      this.id  = undefined
     }
+
+    json(){
+        return {username:this.username,
+                password:this.password,
+                fname:this.fname,
+                lname:this.lname,
+                id:this.id}
+    }
 }
