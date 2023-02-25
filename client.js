@@ -1,4 +1,4 @@
-import { FXMLhttpRequest } from "./network/fxmlhttprequest.mjs";
+import { FXMLhttpRequest } from "./network/fxmlhttprequest.js";
 var logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
 
 

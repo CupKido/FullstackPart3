@@ -1,4 +1,4 @@
-import { server } from './server/server.mjs' 
+import { server } from './server/server.js' 
 export class network {
 
     static send(FXMLhttpRequest) {

@@ -1,4 +1,4 @@
-import { network } from './network.mjs';
+import { network } from './network.js';
 
 export class FXMLhttpRequest {
 
