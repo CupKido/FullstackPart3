@@ -1,22 +1,22 @@
-import { Mission } from "./mission";
+import { Mission } from "./mission.js";
 
 export class Database {
 
-    load(key){
+    static load(key){
         return JSON.parse(localStorage.getItem(key))
     }
-    save(key,value){
+    static save(key,value){
         localStorage.setItem(key,JSON.stringify(value))
     }
 
     static getUser(userId){
-        users = load('Users')
+        var users = Database.load('Users')
 
         return users[userId.toString()]
     }
 
     static getUser(username,password){
-        users = load('Users')
+        var users = Database.load('Users')
 
         for (const key in users){
             if (users[key].username === username && users[key].password === password){
@@ -27,9 +27,9 @@ export class Database {
     }
 
     static getMissions(userId){
-        user = this.getUser(userId)
-        missions  = load('Missions')
-        final_list = []
+        var user = this.getUser(userId)
+        var missions  = load('Missions')
+        var final_list = []
         for (const mission of  missions){
             if (mission.userId===userId){
                 final_list.push(mission)
@@ -40,32 +40,32 @@ export class Database {
     }
 
     static addUser(user){
-        users = load('Users')
+        var users = Database.load('Users')
 
         users[Object.keys(users).length.toString()] = JSON.stringify(user)
 
-        save('Users', users)
+        Database.save('Users', users)
     }
 
     static addMission(userId,text){
-        missions = load('Missions')
+        var missions = load('Missions')
         missions.push(JSON.stringify(Mission(text,userId,missions.length)))
 
-        save('Missions', missions)
+        Database.save('Missions', missions)
     }
 
     static removeUser(userId){
-        users=load('Users')
+        var users=Database.load('Users')
 
         delete users[userId.toString()]
 
-        save('Users',users)
+        Database.save('Users',users)
     }
 
     static removeMission(missionId){
-        missions=load('Missions')
+        var missions=Database.load('Missions')
 
-        missionIndex = missions.findIndex(function(mes){return mes.id==missionId})
+        var missionIndex = missions.findIndex(function(mes){return mes.id==missionId})
         
         if (missionIndex){
             missions.splice(missionIndex,1)
@@ -74,7 +74,7 @@ export class Database {
             console.log('Dont Exists')
         }
 
-        save('Missions',missions)
+        Database.save('Missions',missions)
     }
 
 }
