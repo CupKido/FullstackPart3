@@ -1,6 +1,4 @@
-import { Mission } from "./mission";
-import { SubMission } from "./submission"
-
+import { Mession } from "./mession";
 
 export class Database {
 
@@ -56,13 +54,6 @@ export class Database {
         save('Missions', missions)
     }
 
-    static addSubMission(missionId,text){
-        submissions = load('SubMissions')
-        submissions.push(JSON.stringify(SubMission(text,missionId,submissions.length)))
-
-        save('SubMissions', submissions)
-    }
-
     static removeUser(userId){
         users=load('Users')
 
@@ -84,21 +75,6 @@ export class Database {
         }
 
         save('Missions',missions)
-    }
-
-    static removeSubMission(submissionId){
-        submissions=load('SubMissions')
-        
-        missionIndex = submissions.findIndex(function(mes){return mes.id==missionId})
-        
-        if (missionIndex){
-            submissions.splice(missionIndex,1)
-        }
-        else{
-            console.log('Dont Exists')
-        }
-
-        save('SubMissions',submissions)
     }
 
 }
