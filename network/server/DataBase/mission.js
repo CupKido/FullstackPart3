@@ -1,6 +1,6 @@
 export class Mission{
-    constructor(messionTest,userId,id){
-        this.text = messionTest
+    constructor(missionText,userId,id){
+        this.text = missionText
         this.userId = userId
         this.id = id
         this.done = false

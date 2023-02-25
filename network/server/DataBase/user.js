@@ -9,7 +9,7 @@ export class User{
      this.lname = lname
 
      this.id  = undefined
-    }
+    };
 
     json(){
         return {username:this.username,
