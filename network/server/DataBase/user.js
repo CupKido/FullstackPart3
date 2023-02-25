@@ -1,6 +1,6 @@
 
 
-class User{
+export class User{
 
     constructor(username,password,fname,lname) {
      this.username = username

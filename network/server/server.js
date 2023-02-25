@@ -1,5 +1,9 @@
 //import { FXMLhttpRequest } from "./fxmlhttprequest.mjs";
-
+console.log('importing');
+import { Database } from "./DataBase/database.js";
+import { Mission } from "./DataBase/mission.js";
+import { User } from "./DataBase/user.js";
+console.log('imported');
 export class server{
     static my_url = 'server.com';
     static handle(FXMLhttpRequest) {
@@ -28,22 +32,30 @@ export class server{
         options.push(["/SignIn", function (resource, body, on_ready_callback){
             // do this and that
             // get user 
-            var the_user = {username: 'saar',
-                password: '1234',
-                id : "123",
-                fname : "saar",
-                lname : "taler"
-            }
+            var user = Database.getUser(body.username, body.password)
             // if user exists
-            if (body.username === the_user.username && body.password === the_user.password) {
+            if (user !== undefined) {
                 console.log('user exists')
                 var response = {status: 200,
-                    user: the_user}
+                    user: {username : user.username,
+                         password : user.password,
+                          id : user.id,
+                           fname : user.fname,
+                            lname : user.lname}}
                on_ready_callback(response);
+            }
+            else {
+                console.log('user does not exist')
+                var response = {status: 404,
+                    user: undefined}
+                on_ready_callback(response);
             }
             // call on_ready_callback when done
             
         }]);
+
+        
+        
 
         options.push(["/GetTasks", function (resource, body, on_ready_callback){
             // do this and that
@@ -71,6 +83,7 @@ export class server{
     static handle_POST(resource, body, on_ready_callback){
         var options = []
         
+        
 
 
         for (var i = 0; i < options.length; i++) {
@@ -90,6 +103,35 @@ export class server{
 
             on_ready_callback({status: 200, response: 'server.com says: task ' + body.title + ' created'});
         }]);
+
+        options.push(["/SignUp", function (resource, body, on_ready_callback){
+            // do this and that
+            // get user 
+            var user = Database.getUser(body.username, body.password)
+            var response = {}
+            // if user exists
+            if (user !== undefined) {
+                console.log('user already exists')
+                response = {status: 404,
+                    user: undefined}
+            }
+            else {
+                console.log('user does not exist, signing up')
+                var user = new User(body.username, body.password, body.fname, body.lname);
+                Database.addUser(user);
+                var user = Database.getUser(body.username, body.password)
+                console.log(user)
+                response = {status: 200,
+                    user: {username : user.username,
+                        password : user.password,
+                         id : user.id,
+                          fname : user.fname,
+                           lname : user.lname}}
+            }
+            // call on_ready_callback when done
+            on_ready_callback(response);
+        }]);
+        
         for (var i = 0; i < options.length; i++) {
             if(resource === options[i][0]){
                 options[i][1](resource, body, on_ready_callback);

@@ -4,12 +4,13 @@ var logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
 
 document.getElementById('LogInButton').addEventListener('click', sign_in);
 
+
 function test(){
     var req = new FXMLhttpRequest();
     req.open(
      'PUT',
-     'server.com/CreateTask',
-     {title: 'Make third fullstack project', description : 'Annoy Avishay to death', userId : logged_user.id},
+     'server.com/SignUp',
+     {username : 'saar', password : '1234', fname : 'saar', lname : 'taler'},
      function(response) {
         console.log('client from server.com says: ', response);
     });
@@ -90,3 +91,5 @@ function exit_login(){
     taskTemplate.classList.add('hide');
     taskTemplate.classList.add('hidden');
 }
+
+test();
