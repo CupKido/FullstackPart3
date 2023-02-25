@@ -1,5 +1,5 @@
-import { Mession } from "./mession";
-import { SubMession } from "./submession"
+import { Mission } from "./mission";
+import { SubMission } from "./submission"
 
 
 export class Database {
@@ -28,13 +28,13 @@ export class Database {
         return undefined
     }
 
-    static getMessions(userId){
+    static getMissions(userId){
         user = this.getUser(userId)
-        messions  = load('Messions')
+        missions  = load('Missions')
         final_list = []
-        for (const mession of  messions){
-            if (mession.userId===userId){
-                final_list.push(mession)
+        for (const mission of  missions){
+            if (mission.userId===userId){
+                final_list.push(mission)
             }
         }
 
@@ -49,18 +49,18 @@ export class Database {
         save('Users', users)
     }
 
-    static addMession(userId,text){
-        messions = load('Messions')
-        messions.push(JSON.stringify(Mession(text,userId,messions.length)))
+    static addMission(userId,text){
+        missions = load('Missions')
+        missions.push(JSON.stringify(Mission(text,userId,missions.length)))
 
-        save('Messions', messions)
+        save('Missions', missions)
     }
 
-    static addSubMession(messionId,text){
-        submessions = load('SubMessions')
-        submessions.push(JSON.stringify(SubMession(text,messionId,submessions.length)))
+    static addSubMission(missionId,text){
+        submissions = load('SubMissions')
+        submissions.push(JSON.stringify(SubMission(text,missionId,submissions.length)))
 
-        save('SubMessions', submessions)
+        save('SubMissions', submissions)
     }
 
     static removeUser(userId){
@@ -71,34 +71,34 @@ export class Database {
         save('Users',users)
     }
 
-    static removeMession(messionId){
-        messions=load('Messions')
+    static removeMission(missionId){
+        missions=load('Missions')
 
-        messionIndex = messions.findIndex(function(mes){return mes.id==messionId})
+        missionIndex = missions.findIndex(function(mes){return mes.id==missionId})
         
-        if (messionIndex){
-            messions.splice(messionIndex,1)
+        if (missionIndex){
+            missions.splice(missionIndex,1)
         }
         else{
             console.log('Dont Exists')
         }
 
-        save('Messions',messions)
+        save('Missions',missions)
     }
 
-    static removeSubMession(submessionId){
-        submessions=load('SubMessions')
+    static removeSubMission(submissionId){
+        submissions=load('SubMissions')
         
-        messionIndex = submessions.findIndex(function(mes){return mes.id==messionId})
+        missionIndex = submissions.findIndex(function(mes){return mes.id==missionId})
         
-        if (messionIndex){
-            submessions.splice(messionIndex,1)
+        if (missionIndex){
+            submissions.splice(missionIndex,1)
         }
         else{
             console.log('Dont Exists')
         }
 
-        save('SubMessions',submessions)
+        save('SubMissions',submissions)
     }
 
 }
