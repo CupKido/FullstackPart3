@@ -1,4 +1,4 @@
-import { Mession } from "./mession";
+import { Mission } from "./mission";
 
 export class Database {
 
