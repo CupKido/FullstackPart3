@@ -11,27 +11,61 @@
 
     <div class="center-div">
         <div id="content-div">
-            <section id="login-signup" class="hidden">
+            <section id="login-signup">
                 <h1>Hi!</h1>
                 <button id="Login">Login</button>
                 <button id="Sign-Up">Sign-Up</button>
             </section>
 
-            <section id="login">
-                <button id="back">></button>
+            <section id="login" class="hidden">
+                <button class="back">></button>
                 <h1>Let's Login!</h1>
                 <form>
-                    <label for="UsernameText">Username:</label>
-                    <input id="UsernameText" type="text" name="username" placeholder="Username" required>                    
-                    <label for="PasswordText">Password:</label>
-                    <input id="PasswordText" type="password" name="password" placeholder="Password" required>
+                    <div class="fill">
+                        <label for="UsernameText-login">Username:</label>
+                        <input id="UsernameText-login" class="input-button" type="text" name="username" placeholder="Username" required>                
+                    </div>
+                    <div class="fill">
+                        <label for="PasswordText-login">Password:</label>
+                        <input id="PasswordText-login" class="input-button" type="password" name="password" placeholder="Password" required>    
+                    </div>
                     <br>
-                    <label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
-                    <label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
+                    <label id="BadUsernameLabel-login" class="hidden login-error">User doesnt exist!</label>
+                    <label id="BadPasswordLabel-login" class="hidden login-error">password doesnt match!</label>
                     <button id="submit-login">Submit</button>
                 </form>
+            </section>
+
+            <section id="sign-up" class="hidden">
+                <button class="back">></button>
+                <h1>Sign-Up</h1>
+                <div class="fill">
+                    <label for="UsernameText-sign-up">Username:</label>
+                    <input id="UsernameText-sign-up" class="input-button" type="text" name="username" placeholder="Username" required>            
+                    
+                </div>
+                <div class="fill">
+                    <label for="PasswordText-sign-up">Password:</label>
+                    <input id="PasswordText-sign-up" class="input-button" type="password" name="password" placeholder="Password" required>
                 
-                
+                </div>
+                <div class="row-div">
+                    <div class="fill">
+                        <label for="fnameText-sign-up">First Name:</label>
+                        <input id="fnameText-sign-up" class="input-button names" type="text" name="fname" placeholder="First Name" required> 
+                    
+                    </div>
+                    <div class="fill">
+                        <label for="lnameText-sign-up">Last Name:</label>
+                        <input id="lnameText-sign-up" class="input-button names" type="text" name="lname" placeholder="Last Name" required> 
+                    
+                    </div>
+                </div>
+                <br>
+                <br>
+                <label id="BadUsernameLabel-sign-up" class="hidden login-error">User exist!</label>
+                <label id="BadPasswordLabel-sign-up" class="hidden login-error">password must be at least 8 characters!</label>
+                <button id="submit-sign-up">Submit</button>
             </section>
         </div>
     </div>
@@ -47,5 +81,7 @@
     <div class='light x7'></div>
     <div class='light x8'></div>
     <div class='light x9'></div>
+
+    <script src="./animations.js" type="text/javascript"></script>
 </body>
 </html>

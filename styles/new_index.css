@@ -4,7 +4,11 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.hidden { display: none; }
+.hidden { 
+    display: none;
+}
+
+
 
 .login-error{
     color: red;
@@ -12,7 +16,7 @@
 
 h1{
     font-size: 50px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -34,7 +38,7 @@ button {
     border: 3px solid gray;
     top: 25%;
     width: 430px;
-    height: 400px;
+    height: 370px;
     text-align: center;
     border-radius: 15px;
 }
@@ -44,22 +48,32 @@ button {
     justify-content: center;
 }
 
-label{
-    
+.row-div{
+    align-items:center;
+    display: inline-flex;
+    width: 80%;
 }
 
-input[type="text"],
-input[type="password"]{
+.input-button{
     border-radius: 10px;
-    width: 20rem;
+    width: 90%;
     height: 1rem;
     border: solid 3px #4CAF50;
     background-color: #def5de;
     padding: 15px;
 }
 
+.fill{
+    text-align: left;
+    box-sizing: border-box;
+    width: 80%;
+    margin: auto;
+}
 
-#back{
+.names{
+    width: 75%;
+}
+.back{
     color: rgb(0, 191, 255);
     background-color: transparent;
     position: absolute;
