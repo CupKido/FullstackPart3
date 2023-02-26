@@ -77,7 +77,21 @@ export class server{
     static handle_POST(resource, body, on_ready_callback){
         var options = []
         
-        
+        options.push(["/RestoreTask", function (resource, body, on_ready_callback){
+            // do this and that
+            var response = {}
+            var mission = Database.restoreMission(body.taskId);
+            if (mission !== undefined) {
+                response = {status: 200, userId : body.userId,
+                    task : {title : mission.text, id : mission.id, done : mission.done} }
+                
+            }else{
+                response = {status: 404, userId : body.userId,
+                    task : undefined }
+                
+            }
+            on_ready_callback(response);
+        }]);
 
 
         server.go_over_options(options, resource, body, on_ready_callback);
@@ -91,7 +105,7 @@ export class server{
             var mission = Database.addMission(body.userId, body.title);
             if (mission !== undefined) {
                 response = {status: 200, userId : body.userId,
-                    task : {title : mission.title, id : mission.id, done : mission.done} }
+                    task : {title : mission.text, id : mission.id, done : mission.done} }
                 
             }else{
                 response = {status: 404, userId : body.userId,

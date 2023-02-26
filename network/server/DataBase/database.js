@@ -104,4 +104,29 @@ export class Database {
         
     }
 
+    static restoreMission(missionId){
+        var missions=Database.load('Missions')
+
+        var missionIndex = undefined
+        for(const obj in Object.keys(missions)){
+            if (missions[obj].id==missionId){
+                missionIndex = obj
+                break
+            }
+        }
+        
+        if (missionIndex !== undefined){
+            var mission = missions[missionIndex]
+            mission['done'] = false
+            missions[missionIndex] = mission
+            Database.save('Missions',missions)
+            return mission
+        }
+        else{
+            console.log('Doesnt Exists')
+            return undefined
+        }
+
+        
+    }
 }

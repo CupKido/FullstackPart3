@@ -30,13 +30,26 @@
 	
 	<input id='task-text' type="text" placeholder="Enter a task">
 	<button id="FormSubmit_Click">Add</button>
+	<button id="LogOutButton">Logout</button>
 	
 
 	<ul id="task-list">
+		<h3>Tasks:</h3>
 		<!-- Template for each task -->
 		<template id="task-template">
 			<li>
 				<input type="checkbox" id="task-check" class="check-box">
+				<label for="task-check"><span></span></label>
+				<button class="delete-btn">Delete</button>
+			</li>
+		</template>
+	</ul>
+	<ul id="completed-task-list">
+		<h3>Completed:</h3>
+		<!-- Template for each task -->
+		<template id="completed-task-template">
+			<li>
+				<input type="checkbox" id="task-check" class="check-box" checked>
 				<label for="task-check"><span></span></label>
 				<button class="delete-btn">Delete</button>
 			</li>
