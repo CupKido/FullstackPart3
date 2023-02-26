@@ -2,19 +2,23 @@ var loginPageBottun = document.getElementById("Login")
 var SignUpPageBottun = document.getElementById("Sign-Up")
 var backBottuns = document.getElementsByClassName('back')
 
+function changeScreen(element,showId,newHeight){
+    element.parentElement.className = ''
+    document.getElementById(showId).className = 'display-section'
+    document.getElementById('content-div').style.height = newHeight
+}
+
 loginPageBottun.onclick = function(event){
-    this.parentElement.className = 'hidden'
-    document.getElementById('login').className = ''
+    changeScreen(this, 'login','400px')
 }
 
 SignUpPageBottun.onclick = function(event){
-    this.parentElement.className = 'hidden'
-    document.getElementById('sign-up').className = ''
+    changeScreen(this, 'sign-up','430px')
 }
 
 for (var backBottun of backBottuns){
     backBottun.onclick = function(event){
-        this.parentElement.className = 'hidden'
-        document.getElementById('login-signup').className = ''
+        changeScreen(this, 'login-signup','370px')
+
     }
 }

@@ -4,10 +4,21 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+section{
+    overflow: hidden;
+    opacity: 0;
+    height: 0;
+    transition: 0.5s linear opacity;
+}
+
+.display-section{
+    height: auto;
+    opacity: 1;
+}
+
 .hidden { 
     display: none;
 }
-
 
 
 .login-error{
