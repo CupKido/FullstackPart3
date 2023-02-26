@@ -73,7 +73,7 @@ export class Database {
     static removeUser(userId){
         var users=Database.load('Users')
 
-        delete users[userId.toString()]
+        delete users[userId]
 
         Database.save('Users',users)
     }
@@ -81,16 +81,52 @@ export class Database {
     static removeMission(missionId){
         var missions=Database.load('Missions')
 
-        var missionIndex = missions.findIndex(function(mes){return mes.id==missionId})
+        var missionIndex = undefined
+        for(const obj in Object.keys(missions)){
+            if (missions[obj].id==missionId){
+                missionIndex = obj
+                break
+            }
+        }
         
-        if (missionIndex){
-            missions.splice(missionIndex,1)
+        if (missionIndex !== undefined){
+            var mission = missions[missionIndex]
+            mission['done'] = true
+            missions[missionIndex] = mission
+            Database.save('Missions',missions)
+            return mission
         }
         else{
-            console.log('Dont Exists')
+            console.log('Doesnt Exists')
+            return undefined
         }
 
-        Database.save('Missions',missions)
+        
     }
 
+    static restoreMission(missionId){
+        var missions=Database.load('Missions')
+
+        var missionIndex = undefined
+        for(const obj in Object.keys(missions)){
+            if (missions[obj].id==missionId){
+                missionIndex = obj
+                break
+            }
+        }
+        
+        if (missionIndex !== undefined){
+            var mission = missions[missionIndex]
+            mission['done'] = false
+            missions[missionIndex] = mission
+            Database.save('Missions',missions)
+            return mission
+        }
+        else{
+            console.log('Doesnt Exists')
+            return undefined
+        }
+
+        
+    }
 }
