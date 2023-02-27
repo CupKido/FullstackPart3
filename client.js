@@ -50,8 +50,6 @@ function sign_in(event){
                 lname : user.lname
             };
 
-            exit_login_page();
-            exit_signup_page();
             console.log('log in success, loading tasks...');
             load_todo_list();
         }
@@ -91,8 +89,7 @@ function sign_up(){
                     fname : user.fname,
                     lname : user.lname
                 };
-                exit_login_page();
-                exit_signup_page();
+                
                 console.log('sign up success, loading tasks...');
                 load_todo_list();
             }
@@ -104,6 +101,14 @@ function sign_up(){
 function sign_up_page(){
     load_signup_page();
     exit_login_page();
+}
+
+function clear_fields(){
+    const inputFields = document.getElementsByClassName('input-button')
+
+    for (const inputField of inputFields){
+        inputField.value = ''
+    }
 }
 
 function load_todo_list(){
@@ -132,9 +137,11 @@ function load_todo_list(){
 
 
             // remove hide class from todo list
+            document.getElementsByClassName('form')[0].classList.add('hidden');
             const taskDiv = document.getElementById('ToDoListApp');
-            taskDiv.classList.remove('hide');
             taskDiv.classList.remove('hidden');
+            clear_fields();
+            document.getElementsByTagName('body')[0].style.background = 'rgb(241, 241, 241)';
         }
     });
     req.send();
@@ -161,8 +168,10 @@ function logout(event){
 
     // add hide class to todo list
     const taskDiv = document.getElementById('ToDoListApp');
-    taskDiv.classList.add('hide');
     taskDiv.classList.add('hidden');
+    document.getElementsByClassName('form')[0].classList.remove('hidden');
+    document.getElementsByTagName('body')[0].style.background = 'radial-gradient(#39a245,#1f1013)';
+
 
     logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
     exit_signup_page();
@@ -172,29 +181,29 @@ function logout(event){
 function load_login_page(){
     const taskTemplate = document.getElementById('login-form');
     // add hide class to login form
-    taskTemplate.classList.remove('hide');
-    taskTemplate.classList.remove('hidden');
+    taskTemplate.classList.add('display-section');
+    taskTemplate.classList.remove('area');
 }
 
 function exit_login_page(){
     const taskTemplate = document.getElementById('login-form');
     // add hide class to login form
-    taskTemplate.classList.add('hide');
-    taskTemplate.classList.add('hidden');
+    taskTemplate.classList.add('area');
+    taskTemplate.classList.remove('display-section');
 }
 
 function load_signup_page(){
     const taskTemplate = document.getElementById('signup-form');
     // add hide class to login form
-    taskTemplate.classList.remove('hide');
-    taskTemplate.classList.remove('hidden');
+    taskTemplate.classList.add('display-section');
+    taskTemplate.classList.remove('area');
 }
 
 function exit_signup_page(){
     const taskTemplate = document.getElementById('signup-form');
     // add hide class to login form
-    taskTemplate.classList.add('hide');
-    taskTemplate.classList.add('hidden');
+    taskTemplate.classList.add('area');
+    taskTemplate.classList.remove('display-section');
 }
 
 test();

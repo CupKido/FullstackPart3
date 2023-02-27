@@ -5,25 +5,40 @@
 	<link rel="stylesheet" href="styles/index.css" type="text/css">
 </head>
 <body>
-    <div class="form" id="login-form">
-        <h1>Login</h1>
-        <input id="UsernameText" type="text" name="username" placeholder="Username" required>
-        <label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
-        <input id="PasswordText" type="password" name="password" placeholder="Password" required>
-        <label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
-        <button id="LogInButton" type="button">Log in</button>
-        <button id="SignUpPageButton" type="button">Sign up page</button>
-        <label id="ManyTrialsLabel" class="hidden login-error">Too many trials!</label>
-    </div>
-	<div class="hidden form" id="signup-form">
-        <h1>Sign Up</h1>
-        <input id="SignUpUsernameText" type="text" name="username" placeholder="Username" required>
-        <input id="SignUpPasswordText" type="text" name="password" placeholder="Password" required>
-		<input id="SignUpFNameText" type="text" name="FName" placeholder="First name" required>
-		<input id="SignUpLNameText" type="text" name="LName" placeholder="Last name" required>
-        <button id="SignUpButton" type="button">Sign up</button>
-        <button id="LogInPageButton" type="button">Log in page</button>
-    </div>
+
+	<!-- background elements-->
+	<div class='light x1'></div>
+	<div class='light x2'></div>
+	<div class='light x3'></div>
+	<div class='light x4'></div>
+	<div class='light x5'></div>
+	<div class='light x6'></div>
+	<div class='light x7'></div>
+	<div class='light x8'></div>
+	<div class='light x9'></div>
+
+	<div class="form">
+		<div class="display-section" id="login-form">
+			<h1>Login</h1>
+			<input id="UsernameText"  class="input-button" type="text" name="username" placeholder="Username" required>
+			<label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
+			<input id="PasswordText"  class="input-button" type="password" name="password" placeholder="Password" required>
+			<label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
+			<button id="LogInButton" type="button">Log in</button>
+			<button id="SignUpPageButton" type="button">Sign up page</button>
+			<label id="ManyTrialsLabel" class="hidden login-error">Too many trials!</label>
+		</div>
+		<div class="area" id="signup-form">
+			<h1>Sign Up</h1>
+			<input id="SignUpUsernameText"  class="input-button" type="text" name="username" placeholder="Username" required>
+			<input id="SignUpPasswordText"  class="input-button" type="text" name="password" placeholder="Password" required>
+			<input id="SignUpFNameText"  class="input-button" type="text" name="FName" placeholder="First name" required>
+			<input id="SignUpLNameText"  class="input-button" type="text" name="LName" placeholder="Last name" required>
+			<button id="SignUpButton" type="button">Sign up</button>
+			<button id="LogInPageButton" type="button">Log in page</button>
+		</div>
+	</div>
+    
     <div class="ToDoListApp hidden" id = "ToDoListApp">
 
 	<h1>To-Do List</h1>
@@ -39,7 +54,7 @@
 		<template id="task-template">
 			<li>
 				<input type="checkbox" id="task-check" class="check-box">
-				<label for="task-check"><span></span></label>
+				<label><span></span></label>
 			</li>
 		</template>
 	</ul>
@@ -49,7 +64,7 @@
 		<template id="completed-task-template">
 			<li>
 				<input type="checkbox" id="task-check" class="check-box" checked>
-				<label for="task-check"><span></span></label>
+				<label><span></span></label>
 			</li>
 		</template>
 	</ul>
