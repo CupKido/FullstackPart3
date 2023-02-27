@@ -41,7 +41,7 @@ export class server{
             else {
                 console.log('user does not exist')
                 var response = {status: 404,
-                    user: undefined}
+                    user: undefined, message: 'User does not exist'}
                 on_ready_callback(response);
             }
             // call on_ready_callback when done
