@@ -38,7 +38,6 @@ export class Database {
     }
 
     static getMissions(userId){
-        var user = Database.getUser(userId)
         var missions = Database.load('Missions')
         var final_list = []
         for (const mission of Object.values(missions)){

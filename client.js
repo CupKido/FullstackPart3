@@ -53,6 +53,11 @@ function sign_in(event){
             console.log('log in success, loading tasks...');
             load_todo_list();
         }
+        else{
+            document.getElementById('LoginErrorLabel').classList.remove('hidden');
+            setTimeout(()=>{document.getElementById('LoginErrorLabel').classList.add('hidden');}, 1000)
+        }
+
     });
     req.send();
 }
@@ -92,7 +97,12 @@ function sign_up(){
                 
                 console.log('sign up success, loading tasks...');
                 load_todo_list();
+            }   
+            else{
+                document.getElementById('SignupErrorLabel').classList.remove('hidden');
+                setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 1000)
             }
+    
         }
     );
     req.send();
@@ -134,13 +144,11 @@ function load_todo_list(){
                     addTask(task);
                 }
             }
+            clear_fields();
 
-
-            // remove hide class from todo list
             document.getElementsByClassName('form')[0].classList.add('hidden');
             const taskDiv = document.getElementById('ToDoListApp');
             taskDiv.classList.remove('hidden');
-            clear_fields();
             document.getElementsByTagName('body')[0].style.background = 'rgb(241, 241, 241)';
         }
     });
@@ -206,7 +214,7 @@ function exit_signup_page(){
     taskTemplate.classList.remove('display-section');
 }
 
-test();
+//test();
 
 // Function to add a new task to the list
 function addNewTask(text) {
@@ -253,13 +261,11 @@ function addCompletedTask(task){
 
 function CompletedTask(element) {
     const tasksList = document.getElementById('completed-task-list');
-    //const task_item = element.content.cloneNode(true);
     tasksList.appendChild(element);
 }
 
 function RestoreTask(element) {
     const tasksList = document.getElementById('task-list');
-    //const task_item = element.content.cloneNode(true);
     tasksList.appendChild(element);
 }
 
@@ -276,12 +282,7 @@ function CheckBox_change(event){
             function(response) {
                 console.log(response.status)
                 if (response.status === 200){
-                    CompletedTask(check_box.parentElement);
-                    // remove task from list
-                    //check_box.parentElement.remove();
-                    // add to completed tasks list
-
-                    
+                    CompletedTask(check_box.parentElement);                    
                 }
             });
         req.send();
@@ -296,11 +297,6 @@ function CheckBox_change(event){
                 console.log(response.status)
                 if (response.status === 200){
                     RestoreTask(check_box.parentElement);
-                    // remove task from list
-                    //check_box.parentElement.remove();
-                    // add to completed tasks list
-
-                    
                 }
             });
         req.send();

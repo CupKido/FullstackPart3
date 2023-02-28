@@ -21,19 +21,19 @@
 		<div class="display-section" id="login-form">
 			<h1>Login</h1>
 			<input id="UsernameText"  class="input-button" type="text" name="username" placeholder="Username" required>
-			<label id="BadUsernameLabel" class="hidden login-error">User doesnt exist!</label>
 			<input id="PasswordText"  class="input-button" type="password" name="password" placeholder="Password" required>
-			<label id="BadPasswordLabel" class="hidden login-error">password doesnt match!</label>
+			<label id="LoginErrorLabel" class="hidden login-error">username or password is incurrect!</label>
 			<button id="LogInButton" type="button">Log in</button>
 			<button id="SignUpPageButton" type="button">Sign up page</button>
-			<label id="ManyTrialsLabel" class="hidden login-error">Too many trials!</label>
+			<label id="ManyTrialsLabel" class="hidden error">Too many trials!</label>
 		</div>
 		<div class="area" id="signup-form">
 			<h1>Sign Up</h1>
 			<input id="SignUpUsernameText"  class="input-button" type="text" name="username" placeholder="Username" required>
-			<input id="SignUpPasswordText"  class="input-button" type="text" name="password" placeholder="Password" required>
+			<input id="SignUpPasswordText"  class="input-button" type="password" name="password" placeholder="Password" required>
 			<input id="SignUpFNameText"  class="input-button" type="text" name="FName" placeholder="First name" required>
 			<input id="SignUpLNameText"  class="input-button" type="text" name="LName" placeholder="Last name" required>
+			<label id="SignupErrorLabel" class="hidden error">username or password is incurrect!</label>
 			<button id="SignUpButton" type="button">Sign up</button>
 			<button id="LogInPageButton" type="button">Log in page</button>
 		</div>
