@@ -32,6 +32,13 @@ function sign_in(event){
     var passElement = document.getElementById("PasswordText");
     var user_password = passElement.value;
 
+
+    if (user_username === '' || user_password ===''){
+        document.getElementById('LoginErrorLabel').classList.remove('hidden');
+        setTimeout(()=>{document.getElementById('LoginErrorLabel').classList.add('hidden');}, 2000)
+        return
+    }
+
     var req = new FXMLhttpRequest();
     req.open(
      'GET',
@@ -68,6 +75,7 @@ function sign_in_page(){
 }
 
 function sign_up(){
+    console.log('enter signup')
     // get password and username from login form
     var userElement = document.getElementById("SignUpUsernameText");
     var user_username = userElement.value;
@@ -77,6 +85,15 @@ function sign_up(){
     var user_fname = fnameElement.value;
     var lnameElement = document.getElementById("SignUpLNameText");
     var user_lname = lnameElement.value;
+
+    console.log(user_username,user_password,user_fname,user_lname)
+    if (user_username === '' || user_password === '' || user_fname === '' || user_lname === ''){
+        const error = document.getElementById('SignupErrorLabel');
+        error.textContent = 'please fill all fields!';
+        error.classList.remove('hidden');
+        setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 2000);
+        return
+    }
 
     var req = new FXMLhttpRequest();
     req.open(
@@ -99,8 +116,10 @@ function sign_up(){
                 load_todo_list();
             }   
             else{
-                document.getElementById('SignupErrorLabel').classList.remove('hidden');
-                setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 1000)
+                const error = document.getElementById('SignupErrorLabel');
+                error.textContent = 'username already exists!';
+                error.classList.remove('hidden');
+                setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 2000);
             }
     
         }
