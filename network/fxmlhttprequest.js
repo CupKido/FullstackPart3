@@ -2,7 +2,13 @@ import { network } from './network.js';
 
 export class FXMLhttpRequest {
 
-    // create 'open' method
+    /**
+     * method to open request to the server through the network
+     * @param {string} method the method whated to do
+     * @param {string} url the url to do the method
+     * @param {string} body the request body
+     * @param {Function} onready_handler the function to actived when to request is finished
+     */
     open(method, url, body, onready_handler) {
         this.method = method;
         this.url = url;
@@ -11,7 +17,9 @@ export class FXMLhttpRequest {
         this.status = 0;
     }
 
-    // create 'send' method
+    /**
+     * send the method to the server through the network
+     */
     send() {
         network.send(this);
     }

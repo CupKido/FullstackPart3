@@ -1,10 +1,19 @@
+import { FXMLhttpRequest } from "../fxmlhttprequest.js";
 import { Database } from "./DataBase/database.js";
 import { Mission } from "./DataBase/mission.js";
 import { User } from "./DataBase/user.js";
 export class server{
+    /**
+     * class that represent server working
+     */
     static my_url = 'server.com';
+    /**
+     * this function is handeling calls that arrived to the server from the network
+     * @param {FXMLhttpRequest} FXMLhttpRequest the request to the server
+     */
     static handle(FXMLhttpRequest) {
         
+
         console.log(server.my_url + ' received ', FXMLhttpRequest.body, ' with method ', FXMLhttpRequest.method);
         var resource = FXMLhttpRequest.url.substring(server.my_url.length, FXMLhttpRequest.url.length)
         if (FXMLhttpRequest.method === 'GET') {
@@ -22,7 +31,14 @@ export class server{
         FXMLhttpRequest.status = 4;
     }
 
+    /**
+     * this function represent 'GET' method
+     * @param {string} resource the resource that needed
+     * @param {string} body the body of the request
+     * @param {Function} on_ready_callback function to activete when the call is finish
+     */
     static handle_GET(resource, body, on_ready_callback){
+        
         var options = []
 
         
@@ -74,6 +90,12 @@ export class server{
         server.go_over_options(options, resource, body, on_ready_callback);
     }
 
+    /**
+     * this function represent 'POST' method
+     * @param {string} resource the resource that needed
+     * @param {string} body the body of the request
+     * @param {Function} on_ready_callback function to activete when the call is finish
+     */
     static handle_POST(resource, body, on_ready_callback){
         var options = []
         
@@ -96,7 +118,13 @@ export class server{
 
         server.go_over_options(options, resource, body, on_ready_callback);
     }
-
+    
+    /**
+     * this function represent 'PUT' method
+     * @param {string} resource the resource that needed
+     * @param {string} body the body of the request
+     * @param {Function} on_ready_callback function to activete when the call is finish
+     */
     static handle_PUT(resource, body, on_ready_callback){
         var options = []
         options.push(["/CreateTask", function (resource, body, on_ready_callback){
@@ -145,7 +173,12 @@ export class server{
         
         server.go_over_options(options, resource, body, on_ready_callback);
     }    
-
+    /**
+     * this function represent 'DELETE' method
+     * @param {string} resource the resource that needed
+     * @param {string} body the body of the request
+     * @param {Function} on_ready_callback function to activete when the call is finish
+     */
     static handle_DELETE(resource, body, on_ready_callback){
         var options = []
 
@@ -168,6 +201,13 @@ export class server{
         server.go_over_options(options, resource, body, on_ready_callback);
     }
 
+    /**
+     * function that check which option choosen from the method and actived it
+     * @param {Array} options all the option of method
+     * @param {string} resource the resource that needed
+     * @param {string} body the body of the request
+     * @param {Function} on_ready_callback function to activete when the call is finish
+     */
     static go_over_options(options, resource, body, on_ready_callback){
         for (var i = 0; i < options.length; i++) {
             console.log(options[i][0], ' === ', resource);

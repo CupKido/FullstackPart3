@@ -1,6 +1,13 @@
 
 
 export class User{
+    /**
+     * 
+     * @param {string} username 
+     * @param {string} password 
+     * @param {string} fname 
+     * @param {string} lname 
+     */
 
     constructor(username,password,fname,lname) {
      this.username = username

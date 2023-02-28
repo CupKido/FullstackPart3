@@ -8,7 +8,6 @@ document.getElementById('SignUpButton').addEventListener('click', sign_up);
 document.getElementById('SignUpPageButton').addEventListener('click', sign_up_page);
 document.getElementById('FormSubmit_Click').addEventListener('click', handleFormSubmit);
 document.getElementById('LogOutButton').addEventListener('click', logout);
-var presented_tasks = {};
 
 function test(){
     var req = new FXMLhttpRequest();
@@ -22,8 +21,13 @@ function test(){
     req.send();
 }
 
-// attach event listener to login button
 
+function show_error(label,errorMessage){
+    const error = document.getElementById(`${label}ErrorLabel`);
+    error.textContent = errorMessage;
+    error.classList.remove('hidden');
+    setTimeout(()=>{document.getElementById(`${label}ErrorLabel`).classList.add('hidden');}, 2000);
+}
 
 function sign_in(event){ 
     // get password and username from login form
@@ -34,8 +38,7 @@ function sign_in(event){
 
 
     if (user_username === '' || user_password ===''){
-        document.getElementById('LoginErrorLabel').classList.remove('hidden');
-        setTimeout(()=>{document.getElementById('LoginErrorLabel').classList.add('hidden');}, 2000)
+        show_error('Login','username or password is incurrect!');
         return
     }
 
@@ -61,8 +64,7 @@ function sign_in(event){
             load_todo_list();
         }
         else{
-            document.getElementById('LoginErrorLabel').classList.remove('hidden');
-            setTimeout(()=>{document.getElementById('LoginErrorLabel').classList.add('hidden');}, 1000)
+            show_error('Login','username or password is incurrect!');
         }
 
     });
@@ -88,10 +90,7 @@ function sign_up(){
 
     console.log(user_username,user_password,user_fname,user_lname)
     if (user_username === '' || user_password === '' || user_fname === '' || user_lname === ''){
-        const error = document.getElementById('SignupErrorLabel');
-        error.textContent = 'please fill all fields!';
-        error.classList.remove('hidden');
-        setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 2000);
+        show_error('Signup','please fill all fields!')
         return
     }
 
@@ -116,10 +115,7 @@ function sign_up(){
                 load_todo_list();
             }   
             else{
-                const error = document.getElementById('SignupErrorLabel');
-                error.textContent = 'username already exists!';
-                error.classList.remove('hidden');
-                setTimeout(()=>{document.getElementById('SignupErrorLabel').classList.add('hidden');}, 2000);
+                show_error('Signup','username already exists!')
             }
     
         }
@@ -165,9 +161,9 @@ function load_todo_list(){
             }
             clear_fields();
 
-            document.getElementsByClassName('form')[0].classList.add('hidden');
             const taskDiv = document.getElementById('ToDoListApp');
             taskDiv.classList.remove('hidden');
+            document.getElementsByClassName('form')[0].classList.add('hidden');
             document.getElementsByTagName('body')[0].style.background = 'rgb(241, 241, 241)';
         }
     });
@@ -260,7 +256,7 @@ function addTask(task){
     span.textContent = task.title;
     const check_box = task_item.querySelector('.check-box');
     check_box.setAttribute('task-id', task.id);
-    check_box.checked = task.done;
+    check_box.checked = false;
     check_box.addEventListener('change', CheckBox_change);
     tasksList.appendChild(task_item);
 }
