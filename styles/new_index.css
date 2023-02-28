@@ -62,8 +62,8 @@ button {
 .row-div{
     align-items:center;
     display: inline-flex;
-    width: 80%;
 }
+
 
 .input-button{
     border-radius: 10px;
