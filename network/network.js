@@ -15,9 +15,14 @@ export class network {
             return;
         }
         if(FXMLhttpRequest.url.split('/')[0] === 'server.com'){
-            server.handle(FXMLhttpRequest)
+            server.handle(FXMLhttpRequest, function (response){
+                console.log('network: responding to client with ', response)
+                FXMLhttpRequest.onready_handler(response);
+            })
         }
     }
+
+    
 
 
 }

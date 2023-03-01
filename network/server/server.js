@@ -11,22 +11,22 @@ export class server{
      * this function is handeling calls that arrived to the server from the network
      * @param {FXMLhttpRequest} FXMLhttpRequest the request to the server
      */
-    static handle(FXMLhttpRequest) {
+    static handle(FXMLhttpRequest, respond_method) {
         
 
         console.log(server.my_url + ' received ', FXMLhttpRequest.body, ' with method ', FXMLhttpRequest.method);
         var resource = FXMLhttpRequest.url.substring(server.my_url.length, FXMLhttpRequest.url.length)
         if (FXMLhttpRequest.method === 'GET') {
-            this.handle_GET(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+            this.handle_GET(resource, FXMLhttpRequest.body, respond_method);
         }
         else if (FXMLhttpRequest.method === 'POST') {   
-            this.handle_POST(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+            this.handle_POST(resource, FXMLhttpRequest.body, respond_method);
         }
         else if (FXMLhttpRequest.method === 'PUT') {
-            this.handle_PUT(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+            this.handle_PUT(resource, FXMLhttpRequest.body, respond_method);
         }
         else if (FXMLhttpRequest.method === 'DELETE') {
-            this.handle_DELETE(resource, FXMLhttpRequest.body, FXMLhttpRequest.onready_handler);
+            this.handle_DELETE(resource, FXMLhttpRequest.body, respond_method);
         }
         FXMLhttpRequest.status = 4;
     }
@@ -55,7 +55,7 @@ export class server{
                on_ready_callback(response);
             }
             else {
-                console.log('user does not exist')
+                console.log('server: user does not exist')
                 var response = {status: 404,
                     user: undefined}
                 on_ready_callback(response);
@@ -73,7 +73,6 @@ export class server{
             
             // if user exists
             var Tasks = Database.getMissions(body.userId);
-            console.log(Tasks)
             if (Tasks !== undefined) {
                 var tasks_list = []
                 for (var i = 0; i < Tasks.length; i++){
@@ -210,8 +209,9 @@ export class server{
      */
     static go_over_options(options, resource, body, on_ready_callback){
         for (var i = 0; i < options.length; i++) {
-            console.log(options[i][0], ' === ', resource);
+            
             if(resource === options[i][0]){
+                console.log('server: comparing ', options[i][0], ' === ', resource);
                 options[i][1](resource, body, on_ready_callback);
                 break;
             }

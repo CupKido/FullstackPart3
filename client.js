@@ -38,10 +38,10 @@ function sign_in(event){
 
 
     if (user_username === '' || user_password ===''){
-        show_error('Login','username or password is incurrect!');
+        show_error('Login','please enter both username and password!');
         return
     }
-
+    console.log('client: requesting specified user data...')
     var req = new FXMLhttpRequest();
     req.open(
      'GET',
@@ -60,11 +60,13 @@ function sign_in(event){
                 lname : user.lname
             };
 
-            console.log('log in success, loading tasks...');
+            console.log('client: log in success, loading tasks...');
             load_todo_list();
         }
         else{
-            show_error('Login','username or password is incurrect!');
+            console.log('client: Error, user data invalid')
+            show_error('Login','username or password is incorrect!');
+
         }
 
     });
@@ -111,7 +113,7 @@ function sign_up(){
                     lname : user.lname
                 };
                 
-                console.log('sign up success, loading tasks...');
+                console.log('client: sign up success, loading tasks...');
                 load_todo_list();
             }   
             else{
@@ -147,9 +149,8 @@ function load_todo_list(){
             var tasks = response.tasks;
             // add tasks to todo list
             
-            console.log('title', tasks)
+            console.log('tasks: ', tasks)
             for (const task of tasks){
-                console.log(task.title);
                 if( task.done)
                 {
                     addCompletedTask(task);
