@@ -20,7 +20,7 @@
 	<div class="form">
 		<div class="display-section" id="login-form">
 			<h1>Login</h1>
-			<input id="UsernameText"  class="input-button" type="text" name="username" placeholder="Username" required>
+			<input id="username-text"  class="input-button" type="text" name="username" placeholder="Username" required>
 			<input id="PasswordText"  class="input-button" type="password" name="password" placeholder="Password" required>
 			<label id="LoginErrorLabel" class="hidden error"></label>
 			<button id="LogInButton" type="button">Log in</button>
@@ -35,14 +35,15 @@
 			<input id="SignUpLNameText"  class="input-button" type="text" name="LName" placeholder="Last name" required>
 			<label id="SignupErrorLabel" class="hidden error"></label>
 			<button id="SignUpButton" type="button">Sign up</button>
-			<button id="LogInPageButton" type="button">Log in page</button>
+			<button id="LogInPageButton" type="button">Login page</button>
 		</div>
 	</div>
     
     <div class="ToDoListApp hidden" id = "ToDoListApp">
 
 	<h1>To-Do List</h1>
-	
+	<h2 id="first-last-name-display"></h2>
+
 	<input id='task-text' type="text" placeholder="Enter a task">
 	<button id="FormSubmit_Click">Add</button>
 	<button id="LogOutButton">Logout</button>

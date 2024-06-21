@@ -1,79 +1,66 @@
 import { FXMLhttpRequest } from "./network/fxmlhttprequest.js";
-var logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
+var loggedUser = {username: "", password: "", id : "", firstName : "", lname : ""}
 
 
-document.getElementById('LogInButton').addEventListener('click', sign_in);
-document.getElementById('LogInPageButton').addEventListener('click', sign_in_page);
+document.getElementById('LogInButton').addEventListener('click', signIn);
+document.getElementById('LogInPageButton').addEventListener('click', moveToLoginPage);
 document.getElementById('SignUpButton').addEventListener('click', sign_up);
 document.getElementById('SignUpPageButton').addEventListener('click', sign_up_page);
 document.getElementById('FormSubmit_Click').addEventListener('click', handleFormSubmit);
 document.getElementById('LogOutButton').addEventListener('click', logout);
 
-function test(){
-    var req = new FXMLhttpRequest();
-    req.open(
-     'PUT',
-     'server.com/SignUp',
-     {username : 'saar', password : '1234', fname : 'saar', lname : 'taler'},
-     function(response) {
-        console.log('client from server.com says: ', response);
-    });
-    req.send();
-}
 
-
-function show_error(label,errorMessage){
-    const error = document.getElementById(`${label}ErrorLabel`);
-    error.textContent = errorMessage;
-    error.classList.remove('hidden');
+function displayErrorLabel(label,errorMessage){
+    const errorElement = document.getElementById(`${label}ErrorLabel`);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.remove('hidden');
     setTimeout(()=>{document.getElementById(`${label}ErrorLabel`).classList.add('hidden');}, 2000);
 }
 
-function sign_in(event){ 
-    // get password and username from login form
-    var userElement = document.getElementById("UsernameText");
-    var user_username = userElement.value;
-    var passElement = document.getElementById("PasswordText");
-    var user_password = passElement.value;
-
-
-    if (user_username === '' || user_password ===''){
-        show_error('Login','please enter both username and password!');
-        return
-    }
-    console.log('client: requesting specified user data...')
-    var req = new FXMLhttpRequest();
-    req.open(
-     'GET',
-     'server.com/SignIn',
-     {username : user_username, password : user_password},
-     function(response) {
-        console.log(response)
-        if (response.status === 200){
-            
-            var user = response.user;
-            logged_user = {
-                username : user.username,
-                password: user.password,
-                id : user.id,
-                fname : user.fname,
-                lname : user.lname
-            };
-
-            console.log('client: log in success, loading tasks...');
-            load_todo_list();
-        }
-        else{
-            console.log('client: Error, user data invalid')
-            show_error('Login','username or password is incorrect!');
-
-        }
-
-    });
-    req.send();
+function displayFirstAndLastName(){
+    const firstLastNameElement = document.getElementById('first-last-name-display')
+    firstLastNameElement.textContent = `Hi! ${loggedUser.firstName} ${loggedUser.lname}`
 }
 
-function sign_in_page(){
+function signIn(event){ 
+
+    const userUsername = document.getElementById("username-text").value;
+    const userPassword = document.getElementById("PasswordText").value;
+
+    if (userUsername === '' || userPassword ===''){
+        displayErrorLabel('Login','please enter both username and password!');
+        return
+    }
+
+    const fakeRequest = new FXMLhttpRequest();
+    fakeRequest.open(
+     'GET',
+     'server.com/SignIn',
+     {username : userUsername, password : userPassword},
+     function(response) {
+
+        if (response.status !== 200){
+            displayErrorLabel('Login','username or password is incorrect!');
+            return
+        }
+            
+        const userData = response.user;
+        loggedUser = {
+            username : userData.username,
+            password: userData.password,
+            id : userData.id,
+            firstName : userData.fname,
+            lname : userData.lname
+        };
+
+        loadUserTasks();
+        displayFirstAndLastName();
+    });
+
+    fakeRequest.send();
+}
+
+function moveToLoginPage(){
     load_login_page();
     exit_signup_page();
 }
@@ -85,14 +72,14 @@ function sign_up(){
     var user_username = userElement.value;
     var passElement = document.getElementById("SignUpPasswordText");
     var user_password = passElement.value;
-    var fnameElement = document.getElementById("SignUpFNameText");
-    var user_fname = fnameElement.value;
+    var firstNameElement = document.getElementById("SignUpFNameText");
+    var user_firstName = firstNameElement.value;
     var lnameElement = document.getElementById("SignUpLNameText");
     var user_lname = lnameElement.value;
 
-    console.log(user_username,user_password,user_fname,user_lname)
-    if (user_username === '' || user_password === '' || user_fname === '' || user_lname === ''){
-        show_error('Signup','please fill all fields!')
+    console.log(user_username,user_password,user_firstName,user_lname)
+    if (user_username === '' || user_password === '' || user_firstName === '' || user_lname === ''){
+        displayErrorLabel('Signup','please fill all fields!')
         return
     }
 
@@ -100,24 +87,24 @@ function sign_up(){
     req.open(
         'PUT',
         'server.com/SignUp',
-        {username : user_username, password : user_password, fname : user_fname, lname : user_lname},
+        {username : user_username, password : user_password, fname : user_firstName, lname : user_lname},
         function(response) {
             console.log(response)
             if (response.status === 200){
                 var user = response.user;
-                logged_user = {
+                loggedUser = {
                     username : user.username,
                     password: user.password,
                     id : user.id,
-                    fname : user.fname,
+                    firstName : user.fname,
                     lname : user.lname
                 };
                 
                 console.log('client: sign up success, loading tasks...');
-                load_todo_list();
+                loadUserTasks();
             }   
             else{
-                show_error('Signup','username already exists!')
+                displayErrorLabel('Signup','username already exists!')
             }
     
         }
@@ -138,12 +125,12 @@ function clear_fields(){
     }
 }
 
-function load_todo_list(){
+function loadUserTasks(){
     var req = new FXMLhttpRequest();
     req.open(
      'GET',
      'server.com/GetTasks',
-     {userId : logged_user.id},
+     {userId : loggedUser.id},
      function(response) {
         if (response.status === 200){
             var tasks = response.tasks;
@@ -197,7 +184,7 @@ function logout(event){
     document.getElementsByTagName('body')[0].style.background = 'radial-gradient(#39a245,#1f1013)';
 
 
-    logged_user = {username: "", password: "", id : "", fname : "", lname : ""}
+    loggedUser = {username: "", password: "", id : "", firstName : "", lname : ""}
     exit_signup_page();
     load_login_page();
 }
@@ -212,6 +199,7 @@ function load_login_page(){
 function exit_login_page(){
     const taskTemplate = document.getElementById('login-form');
     // add hide class to login form
+    console.log(taskTemplate)
     taskTemplate.classList.add('area');
     taskTemplate.classList.remove('display-section');
 }
@@ -238,7 +226,7 @@ function addNewTask(text) {
     req.open(
      'PUT',
      'server.com/CreateTask',
-     {userId : logged_user.id, title : text},
+     {userId : loggedUser.id, title : text},
      function(response) {
         console.log(response)
         if (response.status === 200){
